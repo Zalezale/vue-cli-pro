@@ -145,3 +145,8 @@ header>a>span {
 .mui-input-group {
 	margin: 2%;
 }
+/* 以下类放于组件中均无效，不得已只能提取出来了 */
+.mui-input-row .mui-input-clear~.mui-icon-clear {
+    top: 15px !important;
+    color: lightblue !important;
+}
