@@ -9,6 +9,17 @@ import "./assets/css/app.css"
 import App from './App'
 
 Vue.config.productionTip = false
+router.beforeEach((to,from,next)=>{
+if(from.path === "/login"&&to.path === "/menu"){
+to.meta.keepAlive = false;
+}
+next();
+})
+router.afterEach((to, from) => {
+  if(from.path !== "/login"&&to.path === "/menu"){
+    to.meta.keepAlive = true;
+    }
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
