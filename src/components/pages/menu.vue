@@ -141,7 +141,7 @@ export default {
     created: function () {
         var that = this;
         var domainNow = "";
-        app.userMsg.domains.forEach(function (value, index) {
+        app.userMsg().domains.forEach(function (value, index) {
             that.domains.push(value);
         })
         console.log(that.domains)
@@ -153,7 +153,7 @@ export default {
             localStorage.setItem('domainNow', domainNow)
         }
        
-        app.userMsg.permissions.forEach(function (value, index) {
+        app.userMsg().permissions.forEach(function (value, index) {
             that.permissions.forEach(function (value1, index1) {
                 if (value1.id === value.id) {
                     value1.name = value.label;

@@ -16,7 +16,7 @@
                     当前域:{{domainNow}}
                 </li>
                 <li class="mui-table-view-cell">
-                    <select v-model.trim='domainNow'>
+                    <select v-model.trim='domainNow' @change="selChg">
 		<option v-for='(item ,key) in domains' v-bind:key='key'>{{item}}</option>
 		</select>
                 </li>
@@ -53,6 +53,9 @@ export default {
     },
     components:{esunHeader},
     methods: {
+        selChg:function(){
+localStorage.setItem("domainNow",this.domainNow)
+        },
         back: function () {
             this.$router.push('/menu')
         },
@@ -61,9 +64,9 @@ export default {
         }
     },
     created: function () {
-        this.name = app.userMsg.userid;
-        this.domainNow = app.domainNow;
-        this.domains = app.userMsg.domains.map(function (value, index) {
+        this.name = app.userMsg().userid;
+        this.domainNow = app.domainNow();
+        this.domains = app.userMsg().domains.map(function (value, index) {
             return value;
         })
     }

@@ -9,17 +9,19 @@ import "./assets/css/app.css"
 import App from './App'
 
 Vue.config.productionTip = false
+// 页面必须以keepAlive的状态加载进来，才能使用缓存，所以菜单界面keepalive=ture,
 router.beforeEach((to,from,next)=>{
-if(from.path === "/login"&&to.path === "/menu"){
-to.meta.keepAlive = false;
+if(to.path === "/login" && from.path==='/usercenter'){
+router.options.routes[1].meta.keepAlive=false
+}
+//登陆之后设置菜单路由keepalive=true
+if(from.path === "/menu"){
+  from.meta.keepAlive = true;
 }
 next();
 })
-router.afterEach((to, from) => {
-  if(from.path !== "/login"&&to.path === "/menu"){
-    to.meta.keepAlive = true;
-    }
-})
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
