@@ -3,13 +3,13 @@
     class="container"
     v-cloak
 >
-    <esunHeader
+    <EsunHeader
         v-bind:iscenter="false"
         v-bind:ismenu="true"
         v-bind:headername="name"
         v-bind:usercenter='center'
     >
-        </esunHeader>
+        </EsunHeader>
 
         <div class="content">
 
@@ -73,11 +73,7 @@ import app from "../../assets/js/app"
 import asn from "../../assets/img/ASNSc.png"
 import plan from "../../assets/img/planSc.png"
 import ticket from "../../assets/img/tickSc.png"
-import esunHeader from "../subcomponents/header"
 export default {
-    components: {
-        esunHeader
-    },
     data: function () {
         return {
             name: "菜单",

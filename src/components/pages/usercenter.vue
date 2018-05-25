@@ -1,12 +1,12 @@
 <template>
 <div class="container">
-    <esunHeader
+    <EsunHeader
         v-bind:iscenter="true"
         v-bind:ismenu="false"
         v-bind:headername="header"
         v-bind:goback="back"
     >
-        </esunHeader>
+        </EsunHeader>
         <div class="mui-content" >
             <ul class="mui-table-view">
                 <li class="mui-table-view-cell">
@@ -41,7 +41,6 @@
 <script>
 import mui from "../../assets/js/mui.min"
 import app from "../../assets/js/app"
-import esunHeader from '../subcomponents/header'
 export default {
     data: function () {
         return {
@@ -51,7 +50,6 @@ export default {
             domains: [],
         }
     },
-    components:{esunHeader},
     methods: {
         selChg:function(){
 localStorage.setItem("domainNow",this.domainNow)

@@ -13,7 +13,7 @@
 export default {
     data: function () {
         return {
-            mask: this.esunMask,
+            mymask: this.show,
             login:this.isLogin
         }
     },
