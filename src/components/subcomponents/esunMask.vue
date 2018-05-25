@@ -26,7 +26,7 @@ export default {
             return this.isLogin ? 0 : 56
         },
         opacity:function(){
-            return this.isLogin?0:0.8999
+            return this.isLogin?0.899:0.8999
         }
     }
 }

@@ -103,24 +103,7 @@ export default {
             this.$router.push('/usercenter')
         },
         clkImgBtn: function (item) {
-            switch (item.id) {
-                case "xsplanrp":
-                    item.id = "xsplanrp.html"
-                    break;
-                case "xsasnrp":
-                    item.id = "xsasnrp.html"
-                    break;
-                case "xsinvoicerp":
-                    item.id = "xsinvoicerp.html"
-                    break;
-            }
-            app.openWindow({
-                url: item.id,
-                id: item.id,
-                extras: {
-                    name: item.name
-                }
-            })
+              this.$router.push('/'+item.id)
         },
         seledDomain: function () {
             if (!this.domain) {
