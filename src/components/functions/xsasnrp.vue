@@ -183,6 +183,7 @@ export default {
     created: function () {
         this.needTimeSt = app.getDate();
         this.toNeedTime = app.getDate();
+        this.header = this.$router.history.current.query.name
     }
 }
 </script>

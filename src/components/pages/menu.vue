@@ -67,6 +67,7 @@
 
 
 
+
 <script>
 import mui from "../../assets/js/mui.min"
 import app from "../../assets/js/app"
@@ -103,7 +104,12 @@ export default {
             this.$router.push('/usercenter')
         },
         clkImgBtn: function (item) {
-              this.$router.push('/'+item.id)
+            this.$router.push({
+                path: '/' + item.id,
+                query: {
+                    name: item.name,
+                }
+            })
         },
         seledDomain: function () {
             if (!this.domain) {
@@ -124,14 +130,14 @@ export default {
             that.domains.push(value);
         })
         console.log(that.domains)
-        
+
         if (that.domains.length === 1) {
             that.domain = that.domains[0];
             domainNow = that.domain;
             that.showDomainsDiv = false;
             localStorage.setItem('domainNow', domainNow)
         }
-       
+
         app.userMsg().permissions.forEach(function (value, index) {
             that.permissions.forEach(function (value1, index1) {
                 if (value1.id === value.id) {
@@ -146,13 +152,15 @@ export default {
 
 
 
+
 <style scoped>
 /*!
  * =====================================================
  * menu (http://dev.dcloud.net.cn/mui)
  * =====================================================
  */
- .content-menu {
+
+.content-menu {
     margin-top: 54px;
     display: flex;
     flex-direction: row;
@@ -220,5 +228,4 @@ export default {
     border-radius: 20px;
     margin: 0 6%;
 }
-
 </style>

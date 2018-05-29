@@ -191,6 +191,7 @@ export default {
         }
     },
     created:function(){
+           this.header = this.$router.history.current.query.name
     }
 }
 </script>
