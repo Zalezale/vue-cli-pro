@@ -11,7 +11,7 @@
     >
         </EsunHeader>
 
-        <div class="content">
+        <div class="content-menu">
 
             <div
                 class="iconbtn"
@@ -152,8 +152,7 @@ export default {
  * menu (http://dev.dcloud.net.cn/mui)
  * =====================================================
  */
- 
- .content {
+ .content-menu {
     margin-top: 54px;
     display: flex;
     flex-direction: row;

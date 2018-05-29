@@ -52,13 +52,13 @@ export default {
     },
     methods: {
         selChg:function(){
-localStorage.setItem("domainNow",this.domainNow)
+         localStorage.setItem("domainNow",this.domainNow)
         },
         back: function () {
-            this.$router.push('/menu')
+            app.back(this.$router)
         },
         loginOut: function () {
-            this.$router.push('/login')
+            this.$router.replace('/login')
         }
     },
     created: function () {
