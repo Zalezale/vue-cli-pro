@@ -20,6 +20,7 @@
                             type="text"
                             class="mui-input-clear"
                             placeholder="请输入供应商"
+                            tabindex="-1"
                         />
                     </div>
                 </form>
@@ -31,6 +32,7 @@
                             type="text"
                             class="mui-input-clear"
                             placeholder="请输入ASN"
+                              tabindex="-1"
                         />
                     </div>
                     <div class="mui-input-row">
@@ -40,6 +42,7 @@
                             type="text"
                             class="mui-input-clear"
                             placeholder="请输入ASN"
+                              tabindex="-1"
                         />
                     </div>
                 </form>
@@ -50,6 +53,7 @@
                             type="date"
                             v-model.trim="needTimeSt"
                             class="mui-input-clear"
+                             tabindex="-1"
                         />
                     </div>
                     <div class="mui-input-row">
@@ -58,6 +62,7 @@
                             type="date"
                             v-model.trim="toNeedTime"
                             class="mui-input-clear"
+                             tabindex="-1"
                         />
                     </div>
                 </form>
@@ -183,7 +188,7 @@ export default {
     created: function () {
         this.needTimeSt = app.getDate();
         this.toNeedTime = app.getDate();
-        this.header = this.$router.history.current.query.name
+         app.init(this);
     }
 }
 </script>

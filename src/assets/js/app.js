@@ -86,5 +86,8 @@ app.ajax = function(dataExt,api,suc,err){
 		}
 	});
 }
-
+app.init = function(vue){
+	vue.header = vue.$router.history.current.query.name;
+	mui.back = function(){}
+}
 export default app 

@@ -16,7 +16,7 @@
             <div
                 class="iconbtn"
                 v-for="(item,index) in permissions"
-                @tap="clkImgBtn(item)"
+                @click="clkImgBtn(item)"
                 v-show="item.show"
                 v-bind:key="index"
             >
@@ -54,7 +54,7 @@
             </div>
             <div class="btn-bg ">
                 <button
-                    @click='seledDomain'
+                    @tap='seledDomain'
                     type="button"
                     class="mui-btn mui-btn-whilte mui-btn-outlined"
                     style="color: white;background-color: #007AFF;border: 1px solid ;"
