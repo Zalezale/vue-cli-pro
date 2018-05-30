@@ -8,7 +8,7 @@
     <transition name="slide-fade" v-if="!needReload">
         <router-view v-if="!$route.meta.keepAlive"></router-view>
      </transition>
-     <router-view v-if="needReload"></router-view>
+       <router-view v-if="needReload"></router-view>
 </div>
 </template>
 
