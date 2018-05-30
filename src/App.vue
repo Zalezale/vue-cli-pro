@@ -5,9 +5,10 @@
         <router-view v-if="$route.meta.keepAlive"></router-view>
         </keep-alive>
     </transition>
-    <transition name="slide-fade">
-        <router-view v-if="!$route.meta.keepAlive&&!needReload"></router-view>
+    <transition name="slide-fade" v-if="!needReload">
+        <router-view v-if="!$route.meta.keepAlive"></router-view>
      </transition>
+     <router-view v-if="needReload"></router-view>
 </div>
 </template>
 
@@ -31,7 +32,6 @@ export default {
       }
     },
     created:function(){
-        console.log(this)
         this.$router.push('/login')
     }
 }
