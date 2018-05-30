@@ -6,7 +6,7 @@
         </keep-alive>
     </transition>
     <transition name="slide-fade">
-        <router-view v-if="!$route.meta.keepAlive"></router-view>
+        <router-view v-if="!$route.meta.keepAlive&&!needReload"></router-view>
      </transition>
 </div>
 </template>
@@ -14,7 +14,24 @@
 <script>
 export default {
     name: 'App',
+    data:function(){
+      return {
+          needReload:false,
+      }
+    },
+    provide:function(){
+      return {reload:this.reload}
+    },
+    methods:{
+      reload:function(){
+          this.needReload = true;
+        this.$nextTick().then(()=>{
+            this.needReload = false
+        })
+      }
+    },
     created:function(){
+        console.log(this)
         this.$router.push('/login')
     }
 }

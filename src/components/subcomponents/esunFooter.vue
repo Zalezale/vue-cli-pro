@@ -26,13 +26,18 @@ export default {
         return {
             ok: this.confirmBtn,
             cancel: this.cancelBtn,
-            refresh: this.refreshBtn
         }
     },
+    inject:['reload'],
     props: {
         confirmBtn: Function,
         cancelBtn: Function,
         refreshBtn: Function
+    },
+    methods:{
+     refresh:function(){
+         this.reload();
+     }
     },
     created: function () {
         var that = this;
