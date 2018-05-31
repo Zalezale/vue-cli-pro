@@ -1,8 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/pages/login'
-import menu from '@/components/pages/menu'
-import usercenter from '@/components/pages/usercenter'
+const usercenter = () => ({
+  component: import(/* webpackChunkName: "usercenter" */'@/components/pages/usercenter'),
+  loading: null,
+  error: null,
+  delay: 20000,
+  timeout: 30000
+})
+const menu = () => ({
+  component: import(/* webpackChunkName: "menu" */'@/components/pages/menu'),
+  loading: null,
+  error: null,
+  delay: 20000,
+  timeout: 30000
+})
 const xsasnrp = () => ({
   // 需要加载的组件 (应该是一个 `Promise` 对象)
   component: import(/* webpackChunkName: "xsasnrp" */'@/components/functions/xsasnrp'),

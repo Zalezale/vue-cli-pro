@@ -2,30 +2,13 @@ import mui from "./mui.min"
 const app = {}
 app.deelData = function(data){
  if(typeof data !== 'string')throw "请输入字符串"
-  return data.toLocaleLowerCase().trim()
+  return data.toLowerCase().trim()
 }
 app.back = function(router){
       router.go(-1)
 }
 app.fail = function(a,b,c){
   mui.alert('服务器连接失败','前台提示')
-}
-app.deelAjaxSuc = function (e,router) {
-	var rtdt = JSON.parse(e.d);
-	if (rtdt.isoffline === 'true') {
-		mui.alert('异地登陆', '前台提示', function () {
-        router.push("/login")
-		})
-		return;
-	}
-	if (rtdt.canpass == 'false') {
-		mui.alert(rtdt.errormessage || '系统异常，请稍后重试.', "后台提示");
-		return;
-	}
-	return rtdt;
-};
-app.reload = function(router,path){
-      router.go(path);
 }
 app.userMsg = function(){
 return	JSON.parse(localStorage.getItem("userMsg"));
@@ -42,6 +25,14 @@ app.getDate = function () {
 	curTime += years + '-' + (months < 10 ? '0' + months : months) + '-' + (datev < 10 ? '0' + datev : datev);
 	return curTime;
 }
+app.isOnline = function(){
+	let status = (!!window.plus ? plus.networkinfo.getCurrentType():4);
+	console.log(status)
+    if(status===0||status===1){
+    	return false
+    }
+    return true
+}
 /*
   dataUpload:传递的数据
   api:调用的api的名字
@@ -49,6 +40,11 @@ app.getDate = function () {
   err:失败的方法
 */ 
 app.ajax = function(dataExt,api,suc,err){
+	if(!app.isOnline()){
+		mui.alert('请连接到网络','前台提示')
+		return
+
+	}
 	var dataBase = {
 		userid: app.userMsg().userid,
 		corp: app.userMsg().corp,
