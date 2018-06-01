@@ -32,12 +32,12 @@ export default {
       }
     },
     created:function(){
-        this.$router.push('/login')
+        this.$router.push('/esunTakePhoto')
     }
 }
 </script>
 
-<style <style scoped>
+ <style scoped>
 /*!
  * =====================================================
  * App (http://dev.dcloud.net.cn/mui)

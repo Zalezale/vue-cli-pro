@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/pages/login'
+import esunTakePhoto from '../components/subcomponents/esunTakePhoto'
 const usercenter = () => ({
   component: import(/* webpackChunkName: "usercenter" */'@/components/pages/usercenter'),
   loading: null,
@@ -79,6 +80,11 @@ export default new Router({
       path: '/xsinvoicerp',
       name: 'xsinvoicerp',
       component: xsinvoicerp
+    },
+    {
+      path: '/esunTakePhoto',
+      name: 'esunTakePhoto',
+      component: esunTakePhoto
     }
   ]
 })
