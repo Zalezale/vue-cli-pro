@@ -32,7 +32,7 @@
                             type="text"
                             class="mui-input-clear"
                             placeholder="请输入ASN"
-                              tabindex="-1"
+                            tabindex="-1"
                         />
                     </div>
                     <div class="mui-input-row">
@@ -42,7 +42,7 @@
                             type="text"
                             class="mui-input-clear"
                             placeholder="请输入ASN"
-                              tabindex="-1"
+                            tabindex="-1"
                         />
                     </div>
                 </form>
@@ -53,7 +53,7 @@
                             type="date"
                             v-model.trim="needTimeSt"
                             class="mui-input-clear"
-                             tabindex="-1"
+                            tabindex="-1"
                         />
                     </div>
                     <div class="mui-input-row">
@@ -62,7 +62,7 @@
                             type="date"
                             v-model.trim="toNeedTime"
                             class="mui-input-clear"
-                             tabindex="-1"
+                            tabindex="-1"
                         />
                     </div>
                 </form>
@@ -104,11 +104,11 @@
             <EsunFooter
                 v-bind:confirmBtn="ok"
                 v-bind:cancelBtn="cancel"
-                v-bind:refreshBtn="refresh"
             ></EsunFooter>
                 <EsunMask v-bind:show="mask"></EsunMask>
                 </div>
 </template>
+
 
 
 
@@ -132,10 +132,10 @@ export default {
     },
     methods: {
         gousercenter: function () {
-            this.$router.push("/usercenter")
+            app.center(this)
         },
         back: function () {
-            app.back(this.$router)
+            app.back(this)
         },
         ok: function () {
             this.ajaxGetDetial()
@@ -146,9 +146,6 @@ export default {
                 return;
             }
             this.showForm = !this.showForm;
-        },
-        refresh: function () {
-            app.reload(this.$router, "/xsplanrp");
         },
         ajaxGetDetial: function () {
             this.mask = true;
@@ -188,11 +185,11 @@ export default {
     created: function () {
         this.needTimeSt = app.getDate();
         this.toNeedTime = app.getDate();
-         app.init(this);
+        app.init(this);
     }
 }
 </script>
+
 <style scoped>
 
 </style>
-

@@ -1,41 +1,54 @@
 <template>
 <div id="app">
-    <transition name="slide-fade">
-         <keep-alive >
-        <router-view v-if="$route.meta.keepAlive"></router-view>
+    <!-- v-if创建销毁的缓存页面是无法刷新的 -->
+    <transition
+        name="slide-fade"
+    >
+        <keep-alive>
+            <router-view v-if="$route.meta.keepAlive"></router-view>
         </keep-alive>
-    </transition>
-    <transition name="slide-fade" v-if="!needReload">
-        <router-view v-if="!$route.meta.keepAlive"></router-view>
-     </transition>
-       <router-view v-if="needReload"></router-view>
+        </transition>
+        <transition
+            name="slide-fade"
+            v-if="!needReload"
+        >
+            <router-view v-if="!$route.meta.keepAlive"></router-view>
+            </transition>
+            <!-- 非缓存组件刷新 -->
+            <router-view v-if="needReload&&!$route.meta.keepAlive"></router-view>
 </div>
 </template>
+
+
 
 <script>
 export default {
     name: 'App',
-    data:function(){
-      return {
-          needReload:false,
-      }
+    data: function () {
+        return {
+            needReload: false,
+        }
     },
-    provide:function(){
-      return {reload:this.reload}
+    provide: function () {
+        return {
+            reload: this.reload
+        }
     },
-    methods:{
-      reload:function(){
-          this.needReload = true;
-        this.$nextTick().then(()=>{
-            this.needReload = false
-        })
-      }
+    methods: {
+        reload: function () {
+            this.needReload = true;
+            this.$nextTick().then(() => {
+                this.needReload = false
+            })
+        }
     },
-    created:function(){
-        this.$router.push('/esunTakePhoto')
+    created: function () {
+        this.$router.push('/login')
     }
 }
 </script>
+
+
 
  <style scoped>
 /*!
@@ -43,6 +56,7 @@ export default {
  * App (http://dev.dcloud.net.cn/mui)
  * =====================================================
  */
+
 .slide-fade {
     position: absolute;
     left: 0;

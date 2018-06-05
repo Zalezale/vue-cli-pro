@@ -111,7 +111,6 @@
                 <EsunFooter
                     v-bind:confirmBtn="ok"
                     v-bind:cancelBtn="cancel"
-                    v-bind:refreshBtn="refresh"
                 ></EsunFooter>
                     <EsunMask v-bind:show="mask"></EsunMask>
                     </div>
@@ -137,10 +136,10 @@ export default {
     },
     methods: {
         gousercenter: function () {
-            this.$router.push("/usercenter")
+            app.center(this)
         },
         back: function () {
-            app.back(this.$router)
+            app.back(this)
         },
         ok: function () {
             this.ajaxGetDetial()
@@ -151,9 +150,6 @@ export default {
                 return;
             }
             this.showForm = !this.showForm;
-        },
-        refresh: function () {
-            app.reload(this.$router, "/xsinvoicerp");
         },
         ajaxGetDetial: function () {
             this.mask = true;

@@ -55,9 +55,10 @@ export default {
          localStorage.setItem("domainNow",this.domainNow)
         },
         back: function () {
-            app.back(this.$router)
+            app.back(this)
         },
         loginOut: function () {
+            this.$router.history.current.query.vue.$destroy();
             this.$router.replace('/login')
         }
     },

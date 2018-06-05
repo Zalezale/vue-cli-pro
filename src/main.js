@@ -12,15 +12,18 @@ import App from './App'
 
 Vue.config.productionTip = false
 // 页面必须以keepAlive的状态加载进来，才能使用缓存，所以菜单界面keepalive=ture,
-router.beforeEach((to,from,next)=>{
-if(to.path === "/login" && from.path==='/usercenter'){
-router.options.routes[1].meta.keepAlive=false
-}
-//登陆之后设置菜单路由keepalive=true
-if(from.path === "/menu"){
-  from.meta.keepAlive = true;
-}
-next();
+router.beforeEach((to, from, next) => {
+  //login到menu，menu每次刷新
+  if (to.path === "/login" && from.path === '/usercenter') {
+    router.options.routes[1].meta.keepAlive = false
+  } else {
+    //menu到page，page每次刷新且缓存
+      if(from.path === "/menu"){
+        from.meta.keepAlive = true;
+        to.meta.keepAlive = true;
+      }
+    }
+  next();
 })
 
 const requireComponent = require.context(

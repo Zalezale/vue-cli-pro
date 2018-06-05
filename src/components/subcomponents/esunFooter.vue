@@ -32,7 +32,6 @@ export default {
     props: {
         confirmBtn: Function,
         cancelBtn: Function,
-        refreshBtn: Function
     },
     methods:{
      refresh:function(){

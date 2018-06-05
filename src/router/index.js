@@ -1,7 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/pages/login'
-import esunTakePhoto from '../components/subcomponents/esunTakePhoto'
+import baseComponents from '@/components/functions/baseComponents'
+
+const esunScan = () => ({
+  component: import(/* webpackChunkName: "usercenter" */'@/components/pages/esunScan'),
+  loading: null,
+  error: null,
+  delay: 20000,
+  timeout: 30000
+})
 const usercenter = () => ({
   component: import(/* webpackChunkName: "usercenter" */'@/components/pages/usercenter'),
   loading: null,
@@ -82,9 +90,14 @@ export default new Router({
       component: xsinvoicerp
     },
     {
-      path: '/esunTakePhoto',
-      name: 'esunTakePhoto',
-      component: esunTakePhoto
+      path: '/baseComponents',
+      name: 'baseComponents',
+      component: baseComponents,
+    },
+    {
+      path:'/esunScan',
+      name:'esunScan',
+      component:esunScan
     }
   ]
 })

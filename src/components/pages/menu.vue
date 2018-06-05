@@ -95,6 +95,12 @@ export default {
                 name: "",
                 img: ticket,
                 show: false
+            },
+            {
+                id: "baseComponents",
+                name: "",
+                img: ticket,
+                show: true
             }],
             showDomainsDiv: true,
         }
