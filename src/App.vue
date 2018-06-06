@@ -57,7 +57,7 @@ export default {
  * =====================================================
  */
 
-.slide-fade {
+/* .slide-fade {
     position: absolute;
     left: 0;
     right: 0;
@@ -77,5 +77,5 @@ export default {
     right: 0;
     transform: translateX(50px);
     opacity: 0;
-}
+} */
 </style>

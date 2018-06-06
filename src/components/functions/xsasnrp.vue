@@ -104,10 +104,12 @@
             <EsunFooter
                 v-bind:confirmBtn="ok"
                 v-bind:cancelBtn="cancel"
+                v-bind:reloadBtn="reload"
             ></EsunFooter>
                 <EsunMask v-bind:show="mask"></EsunMask>
                 </div>
 </template>
+
 
 
 
@@ -131,6 +133,16 @@ export default {
         }
     },
     methods: {
+        reload: function () {
+            this.header = 'asn',
+                this.ASNSt = '',
+                this.toASN = '',
+                this.supplier = '',
+                this.showForm = true,
+                this.mask = false, this.res.splice(0),
+                this.needTimeSt = app.getDate(),
+                this.toNeedTime = app.getDate();
+        },
         gousercenter: function () {
             app.center(this)
         },
@@ -189,6 +201,7 @@ export default {
     }
 }
 </script>
+
 
 <style scoped>
 

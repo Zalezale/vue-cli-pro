@@ -26,16 +26,21 @@ export default {
         return {
             ok: this.confirmBtn,
             cancel: this.cancelBtn,
+            refreshBtn:this.reloadBtn
         }
     },
     inject:['reload'],
     props: {
         confirmBtn: Function,
         cancelBtn: Function,
+        reloadBtn:{
+      type: Function,
+      required: false
+    }
     },
     methods:{
      refresh:function(){
-         this.reload();
+         this.refreshBtn?this.refreshBtn():this.reload();
      }
     },
     created: function () {

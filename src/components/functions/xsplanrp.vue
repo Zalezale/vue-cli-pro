@@ -142,10 +142,12 @@
                 <EsunFooter
                     v-bind:confirmBtn="ok"
                     v-bind:cancelBtn="cancel"
+                    v-bind:reloadBtn="reload"
                 ></EsunFooter>
                     <EsunMask v-bind:show="mask"></EsunMask>
                     </div>
 </template>
+
 
 
 
@@ -174,8 +176,24 @@ export default {
         }
     },
     methods: {
+        reload: function(){
+                this.supplierSt = '';
+                this.nbrSt = '';
+                this.toSupplier = '';
+                this.toNbr = '';
+                this.aryActive = ["all", 'yes', 'no'];
+                this.active = 'all';
+                this.aryType = ['all', 'F', 'P', ''];
+                this.type = 'all';
+                this.header = "plan";
+                this.mask = false;
+                this.showForm = true;
+                this.res.splice(0)
+                this.needTimeSt = app.getDate();
+                this.toNeedTime = app.getDate();
+        },
         gousercenter: function () {
-             app.center(this)
+            app.center(this)
         },
         back: function () {
             app.back(this)
@@ -236,10 +254,11 @@ export default {
     created: function () {
         this.needTimeSt = app.getDate();
         this.toNeedTime = app.getDate();
-       app.init(this);
+        app.init(this);
     }
 }
 </script>
+
 
 
 

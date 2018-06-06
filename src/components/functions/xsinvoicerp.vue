@@ -111,10 +111,12 @@
                 <EsunFooter
                     v-bind:confirmBtn="ok"
                     v-bind:cancelBtn="cancel"
+                    v-bind:reloadBtn="reload"
                 ></EsunFooter>
                     <EsunMask v-bind:show="mask"></EsunMask>
                     </div>
 </template>
+
 
 <script>
 import mui from "../../assets/js/mui.min"
@@ -135,6 +137,18 @@ export default {
         }
     },
     methods: {
+        reload: function () {
+            this.header = 'ticket',
+                this.v_invoice = '',
+                this.v_invoice1 = '',
+                this.v_vend = '',
+                this.v_vend1 = '',
+                this.v_nbr1 = '',
+                this.v_nbr = '',
+                this.showForm = true,
+                this.mask = false,
+                this.res.splice(0);
+        },
         gousercenter: function () {
             app.center(this)
         },
@@ -164,11 +178,11 @@ export default {
                 v_nbr1: this.v_nbr1,
             };
             app.ajax(data, "xsinvget", function (data) {
-                 that.mask= false;
+                that.mask = false;
                 if (!data) return;
                 var table = data.tmpinvgetyblmstr,
-                len = table.length,
-                i = 0;
+                    len = table.length,
+                    i = 0;
                 if (len === 0) {
                     mui.toast("没有返回有效数据")
                     return;
@@ -182,16 +196,16 @@ export default {
                 }
                 that.showForm = false;
             }, function (a, b, c) {
-                that.mask= false;
+                that.mask = false;
             })
         }
     },
-    created:function(){
-           app.init(this);
+    created: function () {
+        app.init(this);
     }
 }
 </script>
+
 <style scoped>
 
 </style>
-

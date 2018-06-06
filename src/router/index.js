@@ -7,22 +7,16 @@ const esunScan = () => ({
   component: import(/* webpackChunkName: "usercenter" */'@/components/pages/esunScan'),
   loading: null,
   error: null,
-  delay: 20000,
-  timeout: 30000
 })
 const usercenter = () => ({
   component: import(/* webpackChunkName: "usercenter" */'@/components/pages/usercenter'),
   loading: null,
   error: null,
-  delay: 20000,
-  timeout: 30000
 })
 const menu = () => ({
   component: import(/* webpackChunkName: "menu" */'@/components/pages/menu'),
   loading: null,
   error: null,
-  delay: 20000,
-  timeout: 30000
 })
 const xsasnrp = () => ({
   // 需要加载的组件 (应该是一个 `Promise` 对象)
@@ -32,24 +26,20 @@ const xsasnrp = () => ({
   // 加载失败时使用的组件
   error: null,
   // 展示加载时组件的延时时间。默认值是 200 (毫秒)
-  delay: 20000,
+  delay: 200,
   // 如果提供了超时时间且组件加载也超时了，
   // 则使用加载失败时使用的组件。默认值是：`Infinity`
-  timeout: 30000
+ // timeout: 30000
 })
 const xsplanrp = () => ({
   component: import(/* webpackChunkName: "xsplanrp" */'@/components/functions/xsplanrp'),
   loading: null,
   error: null,
-  delay: 20000,
-  timeout: 30000
 })
 const xsinvoicerp = () => ({
   component: import(/* webpackChunkName: "xsinvoicerp" */'@/components/functions/xsinvoicerp'),
   loading: null,
   error: null,
-  delay: 20000,
-  timeout: 30000
 })
 Vue.use(Router)
 
