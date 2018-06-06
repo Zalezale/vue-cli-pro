@@ -7,13 +7,10 @@ app.deelData = function (data) {
 app.center = function(vue){
     vue.$router.push({
 		path: '/usercenter',
-		query: {
-			vue,
-		}
 	})
 }
 app.back = function (vue) {
-	vue.$destroy()
+	vue.$store.state.currentComponent.$destroy()
 	vue.$router.go(-1)
 }
 app.fail = function (a, b, c) {
@@ -93,6 +90,7 @@ app.ajax = function (dataExt, api, suc, err) {
 app.init = function (vue) {
 	vue.header = vue.$router.history.current.query.name;
 	mui.back = function () { }
+	vue.$store.commit('chgComponent',vue)
 	if (!!window.plus) {
 		mui.plusReady(function () {
 			vue.init && vue.init();

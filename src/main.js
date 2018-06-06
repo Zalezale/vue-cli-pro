@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import "./global"
 import Vue from 'vue'
+import Vuex from 'vuex'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 import router from './router'
@@ -9,6 +10,18 @@ import "./assets/fonts/mui.ttf"
 import "./assets/css/mui.min.css"
 import "./assets/css/app.css"
 import App from './App'
+
+Vue.use(Vuex)
+const store = new Vuex.Store({
+  state: {
+    currentComponent: null
+  },
+  mutations: {
+    chgComponent (state,component) {
+      state.currentComponent = component
+    }
+  }
+})
 
 Vue.config.productionTip = false
 // 页面必须以keepAlive的状态加载进来，才能使用缓存，所以菜单界面keepalive=ture,
@@ -56,6 +69,7 @@ requireComponent.keys().forEach(fileName => {
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
