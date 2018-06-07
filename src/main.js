@@ -14,11 +14,19 @@ import App from './App'
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
-    currentComponent: null
+    currentComponent: null,
+    input: '',
+    scanValue: ''
   },
   mutations: {
-    chgComponent (state,component) {
+    chgComponent(state, component) {
       state.currentComponent = component
+    },
+    chgInput: function (state, input) {
+      state.input = input
+    },
+    chgValue: function (state, value) {
+      state.scanValue = value
     }
   }
 })
@@ -31,11 +39,11 @@ router.beforeEach((to, from, next) => {
     router.options.routes[1].meta.keepAlive = false
   } else {
     //menu到page，page每次刷新且缓存
-      if(from.path === "/menu"){
-        from.meta.keepAlive = true;
-        to.meta.keepAlive = true;
-      }
+    if (from.path === "/menu") {
+      from.meta.keepAlive = true;
+      to.meta.keepAlive = true;
     }
+  }
   next();
 })
 

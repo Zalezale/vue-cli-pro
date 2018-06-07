@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div v-show="!showScan">
+    <div v-show="!useScan">
         <EsunHeader
             v-bind:ismenu="false"
             v-bind:iscenter="false"
@@ -8,29 +8,35 @@
             v-bind:goback="back"
             v-bind:usercenter="gousercenter"
         ></EsunHeader>
-            <h5>拍照组件</h5>
+            <h5 style="margin-top:56px;">拍照组件</h5>
             <EsunTakePhoto></EsunTakePhoto>
             <h5>扫码组件</h5>
             <input
+                ref="code1"
                 type="text"
                 placeholder="请扫码"
                 v-model="code1"
             />
             <button @click="scan('code1')">扫描1</button>
             <input
+                ref="code2"
                 type="text"
                 placeholder="请扫码"
                 v-model="code2"
             />
-            <button @click="scan('cod2')">扫描2</button>
+            <button @click="scan('code2')">扫描2</button>
             <input
+                ref="code3"
                 type="text"
                 placeholder="请扫码"
                 v-model="code3"
             />
             <button @click="scan('code3')">扫描3</button>
     </div>
-    <router-view v-show="showScan"></router-view>
+    <EsunScan
+        v-if="useScan"
+        v-on:scaned="scaned"
+    ></EsunScan>
 </div>
 </template>
 
@@ -41,31 +47,52 @@
 
 
 
+
+
+
 <script>
+import mui from "../../assets/js/mui.min"
+import app from '../../assets/js/app'
 export default {
     data: function () {
         return {
             header: '基础组件',
-            code1: '',
+            code1: 'aaa',
             code2: '',
             code3: '',
-            showScan:false
+            useScan: false,
+            whichOne: ''
         }
     },
     methods: {
-        scan: function (input) {
-          this.showScan = !this.showScan
-          this.$router.push('/baseComponents/esunScan')
+        scan: function (whichOne) {
+            this.useScan = true
+            this.whichOne = whichOne
+        },
+        scaned: function (value) {
+            app.log(this.whichOne)
+            switch (this.whichOne) {
+                case 'code1':
+                    this.code1 = value;
+                    break;
+                case 'code2':
+                    this.code2 = value;
+                    break;
+                case 'code3':
+                    this.code3 = value;
+                    break;
+            }
+            this.useScan = false
         },
         gousercenter: function () {
-            this.$router.push("/usercenter")
+            app.center(this)
         },
         back: function () {
-            app.back(this.$router)
+            app.back(this)
         },
     },
-    created:function(){
-        
+    created: function () {
+        app.init(this);
     }
 }
 </script>

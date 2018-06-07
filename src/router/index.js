@@ -3,11 +3,6 @@ import Router from 'vue-router'
 import login from '@/components/pages/login'
 import baseComponents from '@/components/functions/baseComponents'
 
-const esunScan = () => ({
-  component: import(/* webpackChunkName: "usercenter" */'@/components/pages/esunScan'),
-  loading: null,
-  error: null,
-})
 const usercenter = () => ({
   component: import(/* webpackChunkName: "usercenter" */'@/components/pages/usercenter'),
   loading: null,
@@ -83,11 +78,5 @@ export default new Router({
       path: '/baseComponents',
       name: 'baseComponents',
       component: baseComponents,
-    },
-    {
-      path:'/esunScan',
-      name:'esunScan',
-      component:esunScan
-    }
-  ]
+    }]
 })

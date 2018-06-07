@@ -14,7 +14,7 @@ app.back = function (vue) {
 	vue.$router.go(-1)
 }
 app.fail = function (a, b, c) {
-	mui.alert('服务器连接失败', '前台提示')
+	mui.alert('异常:(状态码'+a.status+')', '前台提示')
 }
 app.userMsg = function () {
 	return JSON.parse(localStorage.getItem("userMsg"));
@@ -96,5 +96,8 @@ app.init = function (vue) {
 			vue.init && vue.init();
 		})
 	}
+}
+app.log = function(str){
+    global.context.environment ==="test" ? console.log(str) : "";
 }
 export default app 
