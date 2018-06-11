@@ -34,7 +34,8 @@
             <button @click="scan('code3')">扫描3</button>
     </div>
     <EsunScan
-        v-if="useScan"
+    v-show="useScan"
+        v-bind:scanStatus="useScan"
         v-on:scaned="scaned"
     ></EsunScan>
 </div>
@@ -70,7 +71,6 @@ export default {
             this.whichOne = whichOne
         },
         scaned: function (value) {
-            app.log(this.whichOne)
             switch (this.whichOne) {
                 case 'code1':
                     this.code1 = value;

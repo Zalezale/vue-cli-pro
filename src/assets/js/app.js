@@ -93,7 +93,7 @@ app.init = function (vue) {
 	vue.$store.commit('chgComponent',vue)
 	if (!!window.plus) {
 		mui.plusReady(function () {
-			vue.init && vue.init();
+			//vue.init && vue.init();
 		})
 	}
 }
