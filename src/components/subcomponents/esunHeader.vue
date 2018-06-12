@@ -1,7 +1,7 @@
 <template>
 <header
     class="mui-bar mui-bar-nav"
-    style="background: blue;"
+    style="background: orange;"
 >
     <a
         v-if="!menu"

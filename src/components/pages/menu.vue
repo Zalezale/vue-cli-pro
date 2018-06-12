@@ -57,7 +57,7 @@
                     @tap='seledDomain'
                     type="button"
                     class="mui-btn mui-btn-whilte mui-btn-outlined"
-                    style="color: white;background-color: #007AFF;border: 1px solid ;"
+                    style="color: white;background-color: #007AFF;border: 1px solid ;background:orange;"
                 >确认</button>
             </div>
             </div>
@@ -216,7 +216,7 @@ export default {
 
 .popover-bg .title {
     width: 100%;
-    border-bottom: 2px solid #007AFF;
+    border-bottom: 2px solid orange;
     text-align: center;
     padding-top: 5%;
     padding-bottom: 5%;
@@ -231,7 +231,9 @@ export default {
 .popover-bg .btn-bg button {
     width: 70%;
     height: 40px;
-    border-radius: 20px;
     margin: 0 6%;
+}
+.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{
+    color:orange;
 }
 </style>
