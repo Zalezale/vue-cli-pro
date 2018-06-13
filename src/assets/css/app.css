@@ -164,3 +164,6 @@ header>a>span {
     top: 15px !important;
     color: lightblue !important;
 }
+/* 解决由于监听touchstart和touchmove时passtive为改为true，导致e.preventDefault()进而点击header中的返回时错误的提示,web端会有提示，手机端不会有提示 */
+/* Unable to preventDefault inside passive event listener due to target being treated as passive */
+header{ touch-action: none; }

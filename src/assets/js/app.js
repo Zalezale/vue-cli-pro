@@ -10,7 +10,7 @@ app.center = function(vue){
 	})
 }
 app.back = function (vue) {
-	vue.$store.state.currentComponent.$destroy()
+	vue.$destroy()
 	vue.$router.go(-1)
 }
 app.fail = function (a, b, c) {
@@ -44,7 +44,7 @@ app.isOnline = function () {
   suc:成功的方法
   err:失败的方法
 */
-app.ajax = function (dataExt, api, suc, err) {
+app.ajax = function (dataExt, api, suc, err,vue) {
 	if (!app.isOnline()) {
 		mui.alert('请连接到网络', '前台提示')
 		return
@@ -71,7 +71,7 @@ app.ajax = function (dataExt, api, suc, err) {
 			var rtdt = JSON.parse(e.d);
 			if (rtdt.isoffline === 'true') {
 				mui.alert('异地登陆', '前台提示', function () {
-					router.push("/login")
+					vue.$router.push("/login")
 				})
 				return;
 			}
@@ -89,7 +89,7 @@ app.ajax = function (dataExt, api, suc, err) {
 }
 app.init = function (vue) {
 	vue.header = vue.$router.history.current.query.name;
-	mui.back = function () { }
+	mui.back = function () {return }
 	vue.$store.commit('chgComponent',vue)
 	if (!!window.plus) {
 		mui.plusReady(function () {

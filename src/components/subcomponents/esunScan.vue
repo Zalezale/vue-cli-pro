@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-cloak>
     <div id="bcid">
         <div style="height:40%"></div>
         <p class="tip">...载入中...</p>

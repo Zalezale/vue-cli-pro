@@ -31,6 +31,7 @@
 
 
 
+
 <script>
 import mui from '../../assets/js/mui.min'
 import camera from '../../assets/img/camera.png'
@@ -64,19 +65,21 @@ export default {
         displayFile: function (img) {
             mui.alert('预览', '提示');
         },
-        clearImg: function (img,index) {
-            var that = this ;
+        clearImg: function (img, index) {
+            var that = this;
             img.remove(function () {
                 mui.alert('删除成功', '前台提示')
-                that.res.splice(index,1);
+                that.res.splice(index, 1);
             }, function () {
                 mui.alert('删除失败', '前台提示')
             })
 
         },
         cleanHistory: function () {
-            if(this.res.length===0)return;
+            let that = this
+            if (this.res.length === 0) return;
             this.gentry.removeRecursively(function () {
+                that.res.splice(0)
                 console.log('清除成功')
             }, function (e) {
                 mui.alert('删除失败')
@@ -121,6 +124,7 @@ export default {
     }
 }
 </script>
+
 
 
 

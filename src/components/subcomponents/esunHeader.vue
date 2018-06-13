@@ -41,6 +41,11 @@ export default {
         usercenter:{type:Function,required:false},
         ismenu: Boolean,
         iscenter:Boolean
+    },
+    created:function(){
+        mui.back = function(){
+            return;
+        }
     }
 }
 </script>

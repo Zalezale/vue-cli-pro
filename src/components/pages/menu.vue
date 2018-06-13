@@ -98,7 +98,7 @@ export default {
             },
             {
                 id: "baseComponents",
-                name: "",
+                name: "基础组件库",
                 img: ticket,
                 show: true
             }],

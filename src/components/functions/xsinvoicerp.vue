@@ -197,7 +197,7 @@ export default {
                 that.showForm = false;
             }, function (a, b, c) {
                 that.mask = false;
-            })
+            },this)
         }
     },
     created: function () {

@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-cloak>
     <div v-show="!useScan">
         <EsunHeader
             v-bind:ismenu="false"
@@ -25,19 +25,15 @@
                 v-model="code2"
             />
             <button @click="scan('code2')">扫描2</button>
-            <input
-                ref="code3"
-                type="text"
-                placeholder="请扫码"
-                v-model="code3"
-            />
-            <button @click="scan('code3')">扫描3</button>
     </div>
     <EsunScan
     v-show="useScan"
         v-bind:scanStatus="useScan"
         v-on:scaned="scaned"
     ></EsunScan>
+     <h5>定位组件</h5>
+    <EsunLocation v-on:getPositions="getPositions"></EsunLocation>
+    {{'父组件'+position}}
 </div>
 </template>
 
@@ -62,10 +58,15 @@ export default {
             code2: '',
             code3: '',
             useScan: false,
-            whichOne: ''
+            whichOne: '',
+            position:''
         }
     },
     methods: {
+        getPositions:function(position){
+            console.log(position)
+            this.position = position
+        },
         scan: function (whichOne) {
             this.useScan = true
             this.whichOne = whichOne
