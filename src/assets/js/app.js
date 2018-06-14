@@ -20,7 +20,7 @@ app.userMsg = function () {
 	return JSON.parse(localStorage.getItem("userMsg"));
 }
 app.domainNow = function () {
-	return localStorage.getItem('domainNow') || console.log("当前域为空");
+	return localStorage.getItem('domainNow') || app.log("当前域为空");
 }
 app.getDate = function () {
 	var curTime = '';
@@ -98,6 +98,6 @@ app.init = function (vue) {
 	}
 }
 app.log = function(str){
-    global.context.environment ==="test" ? console.log(str) : "";
+    global.context.environment ==="test" ? app.log(str) : "";
 }
 export default app 

@@ -125,7 +125,7 @@ export default {
             this.showDomainsDiv = false;
             var domainNow = ""
             domainNow = this.domain;
-            console.log(domainNow)
+            app.log(domainNow)
             localStorage.setItem('domainNow', domainNow)
         },
     },
@@ -135,7 +135,7 @@ export default {
         app.userMsg().domains.forEach(function (value, index) {
             that.domains.push(value);
         })
-        console.log(that.domains)
+        app.log(that.domains)
 
         if (that.domains.length === 1) {
             that.domain = that.domains[0];
