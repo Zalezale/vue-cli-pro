@@ -36,6 +36,16 @@ const xsinvoicerp = () => ({
   loading: null,
   error: null,
 })
+const xsasndetget = () => ({
+  component: import(/* webpackChunkName: "xsasndetget" */'@/components/functions/xsasndetget'),
+  loading: null,
+  error: null,
+})
+const xsactbox = () => ({
+  component: import(/* webpackChunkName: "xsactbox" */'@/components/functions/xsactbox'),
+  loading: null,
+  error: null,
+})
 Vue.use(Router)
 
 export default new Router({
@@ -73,6 +83,16 @@ export default new Router({
       path: '/xsinvoicerp',
       name: 'xsinvoicerp',
       component: xsinvoicerp
+    },
+    {
+      path: '/xsasndetget',
+      name: 'xsasndetget',
+      component: xsasndetget
+    },
+    {
+      path: '/xsactbox',
+      name: 'xsactbox',
+      component: xsactbox
     },
     {
       path: '/baseComponents',

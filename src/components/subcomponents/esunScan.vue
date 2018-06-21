@@ -24,6 +24,10 @@
 
 
 
+
+
+
+
 <script>
 import app from '../../assets/js/app'
 export default {
@@ -33,7 +37,8 @@ export default {
         }
     },
     props: {
-        scanStatus: Boolean
+        scanStatus: Boolean,
+        scanMode: Number, //两种模式，连续扫描与单笔扫描(1与0)
     },
     watch: {
         scanStatus: function () {
@@ -42,9 +47,8 @@ export default {
     },
     methods: {
         back: function () {
-            this.$emit('scaned', "")
+            this.$emit('scaned', "",this.scanMode)
             this.scan.close()
-            //this.$destroy();
         },
         scanPicture: function () {
             var that = this
@@ -57,6 +61,7 @@ export default {
             });
         },
         scanSuc: function (type, result, file) {
+            var that = this;
             switch (type) {
                 case plus.barcode.QR:
                     type = 'QR';
@@ -72,9 +77,18 @@ export default {
                     break;
             }
             result = result.replace(/\n/g, '');
-            this.$emit('scaned', result)
-            this.scan.close()
-            // this.$destroy();
+            if (this.scanMode === 1) {
+                that.$emit('scaned', result,this.scanMode, function () {
+                    setTimeout(() => {
+                        that.scan.start({
+                            conserve: false
+                        });
+                    }, 3000);
+                })
+            } else {
+                this.$emit('scaned', result,this.scanMode)
+                this.scan.close()
+            }
         },
         init: function () {
             if (!window.plus) return;
@@ -89,10 +103,15 @@ export default {
         }
     },
     created: function () {
+        console.log(this.scanMode)
         app.init(this)
     }
 }
 </script>
+
+
+
+
 
 
 

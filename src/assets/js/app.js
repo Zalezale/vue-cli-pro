@@ -1,8 +1,8 @@
 import mui from "./mui.min"
 const app = {}
-app.deelData = function (data) {
-	if (typeof data !== 'string') throw "请输入字符串"
-	return data.toLowerCase().trim()
+app.deelData = function (data1,data2) {
+	if (typeof data1 !== 'string'||typeof data2 !== 'string') throw "请输入字符串"
+	return data1.toLowerCase().trim()===data2.toLowerCase().trim()?true:false
 }
 app.center = function(vue){
     vue.$router.push({
@@ -13,8 +13,10 @@ app.back = function (vue) {
 	vue.$destroy()
 	vue.$router.go(-1)
 }
-app.fail = function (a, b, c) {
-	mui.alert('异常:(状态码'+a.status+')', '前台提示')
+app.fail = function (a, b, c,fn) {
+	mui.alert('异常:(状态码'+a.status+')', '前台提示',function(){
+		fn && fn();
+	})
 }
 app.userMsg = function () {
 	return JSON.parse(localStorage.getItem("userMsg"));
@@ -44,7 +46,7 @@ app.isOnline = function () {
   suc:成功的方法
   err:失败的方法
 */
-app.ajax = function (dataExt, api, suc, err,vue) {
+app.ajax = function (dataExt, api, suc, err,vue,fnInFalse) {
 	if (!app.isOnline()) {
 		mui.alert('请连接到网络', '前台提示')
 		return
@@ -69,6 +71,7 @@ app.ajax = function (dataExt, api, suc, err,vue) {
 		contentType: 'application/json,charset=UTF-8',
 		success: function (e) {
 			var rtdt = JSON.parse(e.d);
+			app.log(rtdt)
 			if (rtdt.isoffline === 'true') {
 				mui.alert('异地登陆', '前台提示', function () {
 					vue.$router.push("/login")
@@ -76,14 +79,15 @@ app.ajax = function (dataExt, api, suc, err,vue) {
 				return;
 			}
 			if (rtdt.canpass == 'false') {
-				mui.alert(rtdt.errormessage || '系统异常，请稍后重试.', "后台提示");
+				mui.alert(rtdt.errormessage || '系统异常，请稍后重试.', "后台提示",function(){
+					fnInFalse && fnInFalse();
+				});
 				return;
 			}
 			suc && suc(rtdt)
 		},
 		error: function (xhr, type, errorThrown) {
-			err && err();
-			app.fail(xhr, type, errorThrown)
+			app.fail(xhr, type, errorThrown,err)
 		}
 	});
 }
@@ -98,6 +102,6 @@ app.init = function (vue) {
 	}
 }
 app.log = function(str){
-    global.context.environment ==="test" ? app.log(str) : "";
+    global.context.environment ==="test" ? console.log(str) : "";
 }
 export default app 

@@ -74,6 +74,8 @@ import app from "../../assets/js/app"
 import asn from "../../assets/img/ASNSc.png"
 import plan from "../../assets/img/planSc.png"
 import ticket from "../../assets/img/tickSc.png"
+import asnScan from "../../assets/img/asnScan.png"
+import superlier from "../../assets/img/superlier.png"
 export default {
     data: function () {
         return {
@@ -96,11 +98,23 @@ export default {
                 img: ticket,
                 show: false
             },
+             {
+                id: "xsasndetget",
+                name: "asn扫描",
+                img: asnScan,
+                show: false
+            },
+             {
+                id: "xsactbox",
+                name: "供应商扫描入库",
+                img: superlier,
+                show: false
+            },
             {
                 id: "baseComponents",
                 name: "基础组件库",
                 img: ticket,
-                show: true
+                show: false
             }],
             showDomainsDiv: true,
         }
@@ -171,7 +185,6 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 .iconbtn {
@@ -181,6 +194,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin-top: 5%;
+    margin-left: 2.5%;
     width: 30%;
 }
 
