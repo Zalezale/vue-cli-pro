@@ -254,7 +254,7 @@ export default {
                 })
                 //重新初始化扫码
                 fn && fn();
-                mui.toast('数据获取成功')
+                mui.toast('添加成功')
             }, function (a, b, c) {
                 that.mask = false;
                 fn && fn();
@@ -279,7 +279,7 @@ export default {
                 })
                 //重新初始化扫码
                 fn && fn();
-                mui.toast('数据获取成功')
+                mui.toast('删除成功')
             }, function (a, b, c) {
                 that.mask = false;
                 fn && fn();
