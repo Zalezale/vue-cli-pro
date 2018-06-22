@@ -45,8 +45,11 @@ app.isOnline = function () {
   api:调用的api的名字
   suc:成功的方法
   err:失败的方法
+  vue:当前vue实例
+  fnInFalse：canpass为false的回掉
+  fnInOnline:isoffline为true的回掉
 */
-app.ajax = function (dataExt, api, suc, err,vue,fnInFalse) {
+app.ajax = function (dataExt, api, suc, err,vue,fnInFalse,fnInOnline) {
 	if (!app.isOnline()) {
 		mui.alert('请连接到网络', '前台提示')
 		return
@@ -74,6 +77,8 @@ app.ajax = function (dataExt, api, suc, err,vue,fnInFalse) {
 			app.log(rtdt)
 			if (rtdt.isoffline === 'true') {
 				mui.alert('异地登陆', '前台提示', function () {
+					fnInOnline&&fnInOnline()
+					vue.$destroy();
 					vue.$router.push("/login")
 				})
 				return;

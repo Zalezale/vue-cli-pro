@@ -84,6 +84,8 @@ export default {
                             conserve: false
                         });
                     }, 3000);
+                },function(){
+                    that.scan.close();
                 })
             } else {
                 this.$emit('scaned', result,this.scanMode)

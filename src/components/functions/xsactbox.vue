@@ -96,7 +96,7 @@ export default {
         mode：连续扫描还是单扫
         fn：扫描成功后的回掉函数        
         */
-        scaned: function (value, mode, fn) {
+        scaned: function (value, mode, fn,fnOnline) {
             if (!value) {
                 this.useScan = false;
                 return;
@@ -105,13 +105,13 @@ export default {
                 this.useScan = false;
             }
             this.box = value;
-            this.ajaxChk(fn)
+            this.ajaxChk(fn,fnOnline)
         },
         boxBlur: function () {
             if (!this.box) return
             this.ajaxChk()
         },
-        ajaxChk: function (fn) {
+        ajaxChk: function (fn,fnOnline) {
             var that = this;
             if (that.res.indexOf(that.box.toLowerCase()) !== -1) {
                 mui.toast('当前箱号已经扫描')
@@ -129,7 +129,7 @@ export default {
             }, function (a, b, c) {
                 that.mask = false;
                 fn && fn();
-            }, this,fn||null)
+            }, this,fn||null,fnOnline||null)
         }
     },
     created: function () {

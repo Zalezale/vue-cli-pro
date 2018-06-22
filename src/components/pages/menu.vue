@@ -68,6 +68,7 @@
 
 
 
+
 <script>
 import mui from "../../assets/js/mui.min"
 import app from "../../assets/js/app"
@@ -82,40 +83,7 @@ export default {
             name: "菜单",
             domain: "",
             domains: [],
-            permissions: [{
-                id: "xsplanrp",
-                name: "",
-                img: plan,
-                show: false
-            }, {
-                id: "xsasnrp",
-                name: "",
-                img: asn,
-                show: false
-            }, {
-                id: "xsinvoicerp",
-                name: "",
-                img: ticket,
-                show: false
-            },
-             {
-                id: "xsasndetget",
-                name: "asn扫描",
-                img: asnScan,
-                show: false
-            },
-             {
-                id: "xsactbox",
-                name: "供应商扫描入库",
-                img: superlier,
-                show: false
-            },
-            {
-                id: "baseComponents",
-                name: "基础组件库",
-                img: ticket,
-                show: false
-            }],
+            permissions: [],
             showDomainsDiv: true,
         }
     },
@@ -157,7 +125,90 @@ export default {
             that.showDomainsDiv = false;
             localStorage.setItem('domainNow', domainNow)
         }
-
+        switch(global.context.title){
+            case "Brose":
+            that.permissions = [{
+                    id: "xsplanrp",
+                    name: "",
+                    img: plan,
+                    show: false
+                }, {
+                    id: "xsasnrp",
+                    name: "",
+                    img: asn,
+                    show: false
+                }, {
+                    id: "xsinvoicerp",
+                    name: "",
+                    img: ticket,
+                    show: false
+                },
+                {
+                    id: "baseComponents",
+                    name: "基础组件库",
+                    img: ticket,
+                    show: false
+                }
+            ]
+            break;
+            case "esun":
+            that.permissions=[{
+                    id: "xsplanrp",
+                    name: "",
+                    img: plan,
+                    show: false
+                }, {
+                    id: "xsasnrp",
+                    name: "",
+                    img: asn,
+                    show: false
+                }, {
+                    id: "xsinvoicerp",
+                    name: "",
+                    img: ticket,
+                    show: false
+                },{
+                    id: "xsactbox",
+                    name: "供应商扫描入库",
+                    img: superlier,
+                    show: false
+                },
+                {
+                    id: "xsasndetget",
+                    name: "asn扫描",
+                    img: asnScan,
+                    show: false
+                },
+                {
+                    id: "baseComponents",
+                    name: "基础组件库",
+                    img: ticket,
+                    show: false
+                }
+            ]
+            break;
+            case "光华荣昌":
+            that.permissions =[{
+                    id: "xsactbox",
+                    name: "供应商扫描入库",
+                    img: superlier,
+                    show: false
+                },
+                {
+                    id: "xsasndetget",
+                    name: "asn扫描",
+                    img: asnScan,
+                    show: false
+                },
+                {
+                    id: "baseComponents",
+                    name: "基础组件库",
+                    img: ticket,
+                    show: false
+                }
+            ]
+            break;
+        }
         app.userMsg().permissions.forEach(function (value, index) {
             that.permissions.forEach(function (value1, index1) {
                 if (value1.id === value.id) {
@@ -169,6 +220,7 @@ export default {
     }
 }
 </script>
+
 
 
 
@@ -247,7 +299,9 @@ export default {
     height: 40px;
     margin: 0 6%;
 }
-.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{
-    color:orange;
+
+.mui-checkbox input[type=checkbox]:checked:before,
+.mui-radio input[type=radio]:checked:before {
+    color: orange;
 }
 </style>

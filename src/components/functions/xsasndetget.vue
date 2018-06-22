@@ -122,6 +122,7 @@
 
 
 
+
 <script>
 import mui from "../../assets/js/mui.min"
 import app from "../../assets/js/app"
@@ -142,7 +143,7 @@ export default {
                 chk: true
             }],
             type: 'ADD',
-            res:[],
+            res: [],
             scanPng: null,
             useScan: false,
             mask: false,
@@ -150,7 +151,7 @@ export default {
     },
     methods: {
         reload: function () {
-            this.mask = false, this.res.splice(0),this.useScan=false,this.type="ADD",this.asn ="",this.box="",this.whichOne="";
+            this.mask = false, this.res.splice(0), this.useScan = false, this.type = "ADD", this.asn = "", this.box = "", this.whichOne = "";
         },
         gousercenter: function () {
             app.center(this)
@@ -174,7 +175,7 @@ export default {
         mode：连续扫描还是单扫
         fn：扫描成功后的回掉函数        
         */
-        scaned: function (value, mode, fn) {
+        scaned: function (value, mode, fn,fnOnline) {
             if (!value) {
                 this.useScan = false;
                 return;
@@ -184,9 +185,10 @@ export default {
             }
             if (this.whichOne === 'asn') {
                 this.asn = value;
-                this.ajaxChkAsn(fn)
+                this.ajaxChkAsn(fn,fnOnline)
             } else {
-                this.type === "ADD" ? this.ajaxChkBoxAdd(fn) : this.ajaxChkBoxDel(fn, this.getDelJson())
+                this.box = value;
+                this.type === "ADD" ? this.ajaxChkBoxAdd(fn,fnOnline) : this.ajaxChkBoxDel(fn, this.getDelJson(),fnOnline)
             }
 
         },
@@ -213,7 +215,6 @@ export default {
         pickAll: function () {
             var that = this
             this.isPickAll = !this.isPickAll
-            console.log(this.isPickAll)
             this.res.forEach(element => {
                 element.tmpxsasndetget_pick = that.isPickAll
             })
@@ -236,7 +237,7 @@ export default {
             vjson = vjson.substr(0, vjson.length - 1);
             return "{'tmpxsasndetdel_mstr':[" + vjson + "]}";
         },
-        ajaxChkBoxAdd: function (fn) {
+        ajaxChkBoxAdd: function (fn,fnOnline) {
             var that = this
             app.ajax({
                 v_asn: this.asn,
@@ -258,9 +259,9 @@ export default {
             }, function (a, b, c) {
                 that.mask = false;
                 fn && fn();
-            }, this, fn || null)
+            }, this, fn || null,fnOnline||null)
         },
-        ajaxChkBoxDel: function (fn, delJson) {
+        ajaxChkBoxDel: function (fn, delJson,fnOnline) {
             var that = this
             app.ajax({
                 tmpxsasndetdelmstr: delJson,
@@ -275,6 +276,7 @@ export default {
                     }
                     if (value.tmpxsasndetget_pick) {
                         value.tmpxsasndetget_realqty = 0
+                        value.tmpxsasndetget_pick = false
                     }
                 })
                 //重新初始化扫码
@@ -283,11 +285,12 @@ export default {
             }, function (a, b, c) {
                 that.mask = false;
                 fn && fn();
-            }, this, fn || null)
+            }, this, fn || null,fnOnline||null)
 
         },
-        ajaxChkAsn: function (fn) {
+        ajaxChkAsn: function (fn,fnOnline) {
             var that = this;
+            that.res.splice(0);
             app.ajax({
                 v_asn: this.asn
             }, "xsasndetget", function (data) {
@@ -296,7 +299,7 @@ export default {
                 let table = data.tmpxsasndetgetmstr,
                     len = table.length,
                     i = 0;
-                    console.log(len)
+                console.log(len)
                 if (!len) {
                     mui.toast('数据获取为空')
                     return
@@ -311,7 +314,7 @@ export default {
                         tmpxsasndetget_desc1: table[i].tmpxsasndetget_desc1,
                         tmpxsasndetget_desc2: table[i].tmpxsasndetget_desc2,
                         tmpxsasndetget_qty: table[i].tmpxsasndetget_qty,
-                        tmpxsasndetget_realqty: 0,
+                        tmpxsasndetget_realqty: table[i].tmpxsasndetget_scan_qty,
                         tmpxsasndetget_pick: false
                     }
                     that.res.push(obj)
@@ -323,10 +326,14 @@ export default {
             }, function (a, b, c) {
                 that.mask = false;
                 fn && fn();
-            }, this, fn || null)
+            }, this, fn || null,fnOnline||null)
         },
         delBat: function () {
             var that = this;
+            if(that.type==="ADD"){
+                mui.toast('当前模式为增加');
+                return;
+            }
             var vjson = '';
             for (let i = 0, len = this.res.length; i < len; i++) {
                 if (this.res[i].tmpxsasndetget_pick) {
@@ -336,6 +343,10 @@ export default {
                         "','tmpxsasndetdel_part':'" + this.res[i].tmpxsasndetget_part +
                         "','tmpxsasndetdel_box':'" + '' + "'},";
                 }
+            }
+            if(vjson===""){
+                mui.toast('当前没有需要删除的数量')
+                return;
             }
             vjson = vjson.substr(0, vjson.length - 1);
             vjson = "{'tmpxsasndetdel_mstr':[" + vjson + "]}";
@@ -348,6 +359,7 @@ export default {
     }
 }
 </script>
+
 
 
 
@@ -388,11 +400,13 @@ img {
     width: 15%;
     text-align: center
 }
-.td-5-0 a{
+
+.td-5-0 a {
     text-align: center;
- width: 100%;
+    width: 100%;
 }
-.td-5-0 a span{
+
+.td-5-0 a span {
     text-align: center;
 }
 </style>
