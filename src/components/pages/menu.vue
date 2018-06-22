@@ -217,6 +217,7 @@ export default {
                 }
             })
         })
+        app.init(this)
     }
 }
 </script>

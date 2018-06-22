@@ -103,6 +103,9 @@ app.init = function (vue) {
 	if (!!window.plus) {
 		mui.plusReady(function () {
 			//vue.init && vue.init();
+			plus.key.addEventListener('backbutton',function(){
+				plus.runtime.quit();
+		   })
 		})
 	}
 }
