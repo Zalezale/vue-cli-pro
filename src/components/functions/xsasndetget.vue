@@ -173,7 +173,8 @@ export default {
         /*
         value:扫描成功后的解析的值
         mode：连续扫描还是单扫
-        fn：扫描成功后的回掉函数        
+        fn：扫描成功后的回掉函数
+        fnOnline:异地登陆的回掉函数        
         */
         scaned: function (value, mode, fn,fnOnline) {
             if (!value) {
@@ -247,11 +248,13 @@ export default {
                 if (!data) return;
                 let qty = data.v_qty
                 let part = data.v_part
+                app.log(qty+'|'+part)
                 that.res.every(function (value, index) {
                     if (app.deelData(value.tmpxsasndetget_part, part)) {
                         value.tmpxsasndetget_realqty = value.tmpxsasndetget_realqty + qty
                         return false
                     }
+                    return true
                 })
                 //重新初始化扫码
                 fn && fn();

@@ -1,40 +1,27 @@
 <template>
 <div class="container">
-    <EsunHeader
-        v-bind:iscenter="true"
-        v-bind:ismenu="false"
-        v-bind:headername="header"
-        v-bind:goback="back"
-    >
-        </EsunHeader>
-        <div class="mui-content" >
-            <ul class="mui-table-view">
-                <li class="mui-table-view-cell">
-                    用户名:{{name}}
-                </li>
-                <li class="mui-table-view-cell">
-                    当前域:{{domainNow}}
-                </li>
-                <li class="mui-table-view-cell">
-                    <select v-model.trim='domainNow' @change="selChg">
-		<option v-for='(item ,key) in domains' v-bind:key='key'>{{item}}</option>
-		</select>
-                </li>
-            </ul>
-            <ul
-                class="mui-table-view"
-                style="margin-top: 25px;"
-            >
-                <li class="mui-table-view-cell">
-                    <a
-                        style="text-align: center;color: #FF3B30;"
-                        @click="loginOut"
-                    >
+    <EsunHeader v-bind:iscenter="true" v-bind:ismenu="false" v-bind:headername="header" v-bind:goback="back">
+    </EsunHeader>
+    <div class="mui-content">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                用户名:{{name}}
+            </li>
+            <li class="mui-table-view-cell">
+                当前域:{{domainNow}}
+            </li>
+            <li class="mui-table-view-cell">
+                <select v-model.trim='domainNow' @change="selChg">		<option v-for='(item ,key) in domains' v-bind:key='key'>{{item}}</option>		</select>
+            </li>
+        </ul>
+        <ul class="mui-table-view" style="margin-top: 25px;">
+            <li class="mui-table-view-cell">
+                <a style="text-align: center;color: #FF3B30;" @click="loginOut">
                         退出登录
                         </a>
-                </li>
-                </ul>
-        </div>
+            </li>
+        </ul>
+    </div>
 </div>
 </template>
 
@@ -44,21 +31,23 @@ import app from "../../assets/js/app"
 export default {
     data: function () {
         return {
-            header:'用户中心',
+            header: '用户中心',
             name: '',
             domainNow: '',
             domains: [],
+            upComponent: null
         }
     },
     methods: {
-        selChg:function(){
-         localStorage.setItem("domainNow",this.domainNow)
+        selChg: function () {
+            localStorage.setItem("domainNow", this.domainNow)
         },
         back: function () {
             this.$router.go(-1)
         },
         loginOut: function () {
-            this.$store.state.currentComponent.$destroy();
+            //如果退出登陆，那么销毁前一个组件
+            this.$store.state.upComponent.$destroy();
             this.$router.replace('/login')
         }
     },
@@ -76,8 +65,8 @@ export default {
 .tbody-main p {
     margin-left: 10%;
 }
-.mui-bar-nav~.mui-content{
+
+.mui-bar-nav~.mui-content {
     padding-top: 50px;
 }
-
 </style>

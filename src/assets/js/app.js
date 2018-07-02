@@ -8,6 +8,7 @@ app.center = function(vue){
     vue.$router.push({
 		path: '/usercenter',
 	})
+	vue.$store.commit('chgUpComponet',vue)
 }
 app.back = function (vue) {
 	vue.$destroy()

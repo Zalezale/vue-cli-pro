@@ -16,7 +16,8 @@ const store = new Vuex.Store({
   state: {
     currentComponent: null,
     input: '',
-    scanValue: ''
+    scanValue: '',
+    upComponent:null
   },
   mutations: {
     chgComponent(state, component) {
@@ -27,6 +28,10 @@ const store = new Vuex.Store({
     },
     chgValue: function (state, value) {
       state.scanValue = value
+    },
+    //VUEX中记录上一个组件
+    chgUpComponet:function(state,upComponent){
+       state.upComponent =upComponent 
     }
   }
 })

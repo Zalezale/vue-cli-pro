@@ -89,7 +89,7 @@ export default {
     },
     methods: {
         center: function () {
-            this.$router.push('/usercenter')
+           app.center(this);
         },
         clkImgBtn: function (item) {
             this.$router.push({
