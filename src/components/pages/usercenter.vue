@@ -13,6 +13,12 @@
             <li class="mui-table-view-cell">
                 <select v-model.trim='domainNow' @change="selChg">		<option v-for='(item ,key) in domains' v-bind:key='key'>{{item}}</option>		</select>
             </li>
+            <li class="mui-table-view-cell" @click="chkDebug">
+                上传本地日志
+                <div v-bind:class="{'mui-switch':true,'mui-active':chk}" >
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </li>
         </ul>
         <ul class="mui-table-view" style="margin-top: 25px;">
             <li class="mui-table-view-cell">
@@ -33,6 +39,7 @@ export default {
         return {
             header: '用户中心',
             name: '',
+            chk: false,
             domainNow: '',
             domains: [],
             upComponent: null
@@ -49,6 +56,25 @@ export default {
             //如果退出登陆，那么销毁前一个组件
             this.$store.state.upComponent.$destroy();
             this.$router.replace('/login')
+        },
+        chkDebug() {
+            if (!this.chk) {
+                this.chk = true
+                this.ajaxChk()
+            }else{
+                return 
+            }
+        },
+        ajaxChk() {
+            app.log('启用debug')
+            this.ajaxApiLog()
+        },
+        ajaxApiLog() {
+            let that = this 
+            setTimeout(() => {
+                that.chk = false
+                mui.toast('日志上传完毕！')
+            }, 5000);
         }
     },
     created: function () {
