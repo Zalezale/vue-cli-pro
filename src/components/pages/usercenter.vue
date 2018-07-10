@@ -54,6 +54,7 @@ export default {
         },
         loginOut: function () {
             //如果退出登陆，那么销毁前一个组件
+            this.$destroy();
             this.$store.state.upComponent.$destroy();
             this.$router.replace('/login')
         },
