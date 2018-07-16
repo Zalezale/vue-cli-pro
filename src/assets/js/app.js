@@ -93,6 +93,7 @@ app.ajax = function (dataExt, api, suc, err,vue,fnInFalse,fnInOnline) {
 			suc && suc(rtdt)
 		},
 		error: function (xhr, type, errorThrown) {
+			app.debug({data,time:app.getDate,err:xhr.status})
 			app.fail(xhr, type, errorThrown,err)
 		}
 	});
@@ -109,8 +110,23 @@ app.init = function (vue) {
 		   })
 		})
 	}
+	if(!localStorage.getItem('debug')){
+		localStorage.setItem('debug','');
+	}
 }
 app.log = function(str){
     global.context.environment ==="test" ? console.log(str) : "";
+}
+//传出的数据，时间，反馈的错误
+app.debug = function({data='',time='',err=''}={}){
+let debugLog = localStorage.getItem('debug')
+let dataArray = JSON.parse(debugLog)
+if(!(debugLog instanceof Array))return 
+dataArray.push(arguments[0])
+//长度不超过十个
+if(dataArray.length>10){
+	dataArray.shift()
+}
+localStorage.setItem('debug',JSON.stringify(dataArray))
 }
 export default app 
