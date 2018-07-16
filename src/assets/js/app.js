@@ -93,7 +93,7 @@ app.ajax = function (dataExt, api, suc, err,vue,fnInFalse,fnInOnline) {
 			suc && suc(rtdt)
 		},
 		error: function (xhr, type, errorThrown) {
-			app.debug({data,time:app.getDate,err:xhr.status})
+			app.debug({data,time:app.getDate(),err:'('+xhr.status+')'+xhr.response})
 			app.fail(xhr, type, errorThrown,err)
 		}
 	});
@@ -111,7 +111,7 @@ app.init = function (vue) {
 		})
 	}
 	if(!localStorage.getItem('debug')){
-		localStorage.setItem('debug','');
+		localStorage.setItem('debug',JSON.stringify([]));
 	}
 }
 app.log = function(str){
@@ -121,7 +121,7 @@ app.log = function(str){
 app.debug = function({data='',time='',err=''}={}){
 let debugLog = localStorage.getItem('debug')
 let dataArray = JSON.parse(debugLog)
-if(!(debugLog instanceof Array))return 
+if(!(dataArray instanceof Array))return 
 dataArray.push(arguments[0])
 //长度不超过十个
 if(dataArray.length>10){
