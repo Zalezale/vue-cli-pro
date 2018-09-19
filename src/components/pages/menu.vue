@@ -1,82 +1,55 @@
 <template>
-<div
-    class="container"
-    v-cloak
->
-    <EsunHeader
-        v-bind:iscenter="false"
-        v-bind:ismenu="true"
-        v-bind:headername="name"
-        v-bind:usercenter='center'
-    >
-        </EsunHeader>
-
-        <div class="content-menu">
-
-            <div
-                class="iconbtn"
-                v-for="(item,index) in permissions"
-                @click="clkImgBtn(item)"
-                v-show="item.show"
-                v-bind:key="index"
-            >
-                <img v-bind:src="item.img" />
-                <span>{{item.name}}</span>
-        </div>
-        </div>
-        <div
-            class="popover-bg"
-            v-show="showDomainsDiv"
-        >
-            <div class="popover-inner">
-                <div class="title">
-                    请选择作用域
+  <vue-drawer-layout
+    ref="drawerLayout"
+    @mask-click="handleMaskClick"
+  >
+    <div class="drawer" slot="drawer">
+        <h4>欢迎使用ESUN软件</h4>
+      <!-- <div class="text">This is menu</div>
+      <button
+           @click="handleToggleDrawer">Hide menu</button> -->
+    </div>
+    <div class="content" slot="content">
+     <div class="container" v-cloak>
+            <EsunHeader ref="header" v-bind:color="colorNow" v-bind:iscenter="false" v-bind:ismenu="true" v-bind:headername="name" v-bind:usercenter='center' @click='handleToggleDrawer'>
+            </EsunHeader>
+            <div class="content-menu">
+                <div class="iconbtn" v-for="(item,index) in permissions" @click="clkImgBtn(item)" v-show="item.show" v-bind:key="index">
+                    <img v-bind:src="item.img" />
+                    <span >{{item.name}}</span>
                 </div>
-                <div
-                    class="mui-card"
-                    style="margin-top: 5%;box-shadow:none"
-                >
-                    <form class="mui-input-group">
-                        <div
-                            v-for='(item,index) in domains'
-                            class="mui-input-row mui-radio mui-left"
-                            v-bind:key="index"
-                        >
-                            <label>{{item}}</label>
-                            <input
-                                name="radio"
-                                :value='item'
-                                v-model='domain'
-                                type="radio"
-                            >
             </div>
-            </form>
+            <div class="popover-bg" v-show="showDomainsDiv">
+                <div class="popover-inner">
+                    <div class="title">
+                        请选择作用域
+                    </div>
+                    <div class="mui-card" style="margin-top: 5%;box-shadow:none">
+                        <form class="mui-input-group">
+                            <div v-for='(item,index) in domains' class="mui-input-row mui-radio mui-left" v-bind:key="index">
+                                <label>{{item}}</label>
+                                <input name="radio" :value='item' v-model='domain' type="radio">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="btn-bg ">
+                        <button @tap='seledDomain' type="button" class="mui-btn mui-btn-whilte mui-btn-outlined" style="color: white;background-color: #007AFF;border: 1px solid ;background:orange;">确认</button>
+                    </div>
+                </div>
             </div>
-            <div class="btn-bg ">
-                <button
-                    @tap='seledDomain'
-                    type="button"
-                    class="mui-btn mui-btn-whilte mui-btn-outlined"
-                    style="color: white;background-color: #007AFF;border: 1px solid ;background:orange;"
-                >确认</button>
-            </div>
-            </div>
-            </div>
-            </div>
+        </div>
+    </div>
+  </vue-drawer-layout>
 </template>
 
-
-
-
-
 <script>
-import mui from "../../assets/js/mui.min"
-import app from "../../assets/js/app"
-import asn from "../../assets/img/ASNSc.png"
-import plan from "../../assets/img/planSc.png"
-import ticket from "../../assets/img/tickSc.png"
-import asnScan from "../../assets/img/asnScan.png"
-import superlier from "../../assets/img/superlier.png"
+import mui from "../../assets/js/mui.min";
+import app from "../../assets/js/app";
+import asn from "../../assets/img/ASNSc.png";
+import plan from "../../assets/img/planSc.png";
+import ticket from "../../assets/img/tickSc.png";
+import asnScan from "../../assets/img/asnScan.png";
+import superlier from "../../assets/img/superlier.png";
 export default {
     data: function () {
         return {
@@ -85,19 +58,26 @@ export default {
             domains: [],
             permissions: [],
             showDomainsDiv: true,
-        }
+            colorNow:'orange'
+        };
     },
     methods: {
+      handleMaskClick() {
+        this.$refs.drawerLayout.toggle(false);
+      },
+        handleToggleDrawer() {
+            this.$refs.drawerLayout.toggle();
+        },
         center: function () {
-           app.center(this);
+            app.center(this);
         },
         clkImgBtn: function (item) {
             this.$router.push({
-                path: '/' + item.id,
+                path: "/" + item.id,
                 query: {
-                    name: item.name,
+                    name: item.name
                 }
-            })
+            });
         },
         seledDomain: function () {
             if (!this.domain) {
@@ -105,109 +85,113 @@ export default {
                 return;
             }
             this.showDomainsDiv = false;
-            var domainNow = ""
+            var domainNow = "";
             domainNow = this.domain;
-            app.log(domainNow)
-            localStorage.setItem('domainNow', domainNow)
-        },
+            app.log(domainNow);
+            localStorage.setItem("domainNow", domainNow);
+        }
     },
     created: function () {
         var that = this;
         var domainNow = "";
         app.userMsg().domains.forEach(function (value, index) {
             that.domains.push(value);
-        })
-        app.log(that.domains)
-
+        });
+        app.log(that.domains);
         if (that.domains.length === 1) {
             that.domain = that.domains[0];
             domainNow = that.domain;
             that.showDomainsDiv = false;
-            localStorage.setItem('domainNow', domainNow)
+            localStorage.setItem("domainNow", domainNow);
         }
-        switch(global.context.title){
+        switch (global.context.title) {
             case "Brose":
-            that.permissions = [{
-                    id: "xsplanrp",
-                    name: "",
-                    img: plan,
-                    show: false
-                }, {
-                    id: "xsasnrp",
-                    name: "",
-                    img: asn,
-                    show: false
-                }, {
-                    id: "xsinvoicerp",
-                    name: "",
-                    img: ticket,
-                    show: false
-                },
-                {
-                    id: "baseComponents",
-                    name: "基础组件库",
-                    img: ticket,
-                    show: false
-                }
-            ]
-            break;
+                that.permissions = [{
+                        id: "xsplanrp",
+                        name: "",
+                        img: plan,
+                        show: false
+                    },
+                    {
+                        id: "xsasnrp",
+                        name: "",
+                        img: asn,
+                        show: false
+                    },
+                    {
+                        id: "xsinvoicerp",
+                        name: "",
+                        img: ticket,
+                        show: false
+                    },
+                    {
+                        id: "baseComponents",
+                        name: "基础组件库",
+                        img: ticket,
+                        show: false
+                    }
+                ];
+                break;
             case "esun":
-            that.permissions=[{
-                    id: "xsplanrp",
-                    name: "",
-                    img: plan,
-                    show: false
-                }, {
-                    id: "xsasnrp",
-                    name: "",
-                    img: asn,
-                    show: false
-                }, {
-                    id: "xsinvoicerp",
-                    name: "",
-                    img: ticket,
-                    show: false
-                },{
-                    id: "xsactbox",
-                    name: "供应商扫描入库",
-                    img: superlier,
-                    show: false
-                },
-                {
-                    id: "xsasndetget",
-                    name: "asn扫描",
-                    img: asnScan,
-                    show: false
-                },
-                {
-                    id: "baseComponents",
-                    name: "基础组件库",
-                    img: ticket,
-                    show: false
-                }
-            ]
-            break;
+                that.permissions = [{
+                        id: "xsplanrp",
+                        name: "",
+                        img: plan,
+                        show: false
+                    },
+                    {
+                        id: "xsasnrp",
+                        name: "",
+                        img: asn,
+                        show: false
+                    },
+                    {
+                        id: "xsinvoicerp",
+                        name: "",
+                        img: ticket,
+                        show: false
+                    },
+                    {
+                        id: "xsactbox",
+                        name: "供应商扫描入库",
+                        img: superlier,
+                        show: false
+                    },
+                    {
+                        id: "xsasndetget",
+                        name: "asn扫描",
+                        img: asnScan,
+                        show: false
+                    },
+                    {
+                        id: "baseComponents",
+                        name: "基础组件库",
+                        img: ticket,
+                        show: false
+                    }
+                ];
+                break;
             case "光华荣昌":
-            that.permissions =[{
-                    id: "xsactbox",
-                    name: "供应商扫描入库",
-                    img: superlier,
-                    show: false
-                },
-                {
-                    id: "xsasndetget",
-                    name: "asn扫描",
-                    img: asnScan,
-                    show: false
-                },
-                {
-                    id: "baseComponents",
-                    name: "基础组件库",
-                    img: ticket,
-                    show: false
-                }
-            ]
-            break;
+                that.permissions = [{
+                        id: "xsactbox",
+                        name: "供应商扫描入库",
+                        img: superlier,
+                        show: false
+                    },
+                    {
+                        id: "xsasndetget",
+                        name: "asn扫描",
+                        img: asnScan,
+                        show: false
+                    },
+                    {
+                        id: "baseComponents",
+                        name: "基础组件库",
+                        img: ticket,
+                        show: false
+                    }
+                ];
+                break;
         }
         app.userMsg().permissions.forEach(function (value, index) {
             that.permissions.forEach(function (value1, index1) {
@@ -215,26 +199,37 @@ export default {
                     value1.name = value.label;
                     value1.show = true;
                 }
-            })
+            });
+        });
+        app.init(this);
+    },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            console.log(" app color:   "+app.colorNow())
+            vm.colorNow = app.colorNow();
+            console.log("menu  app color:   "+vm.colorNow)
+            // vm.$refs.header.changeColor();
+            // vm.activeColor = vm.color
         })
-        app.init(this)
-    }
-}
+    },
+};
 </script>
-
-
-
-
 
 <style scoped>
 /*!
- * =====================================================
- * menu (http://dev.dcloud.net.cn/mui)
- * =====================================================
- */
-
+         * =====================================================
+         * menu (http://dev.dcloud.net.cn/mui)
+         * =====================================================
+         */
+.drawer{
+    display: flex;
+    width: 80%;
+    background:lightgray;
+    height: 100%;
+    justify-content: center;
+    padding: 1rem;
+}
 .content-menu {
-    margin-top: 54px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -276,7 +271,7 @@ export default {
     top: 15%;
     bottom: 30%;
     z-index: 101;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 5%;
     opacity: 1;
 }
@@ -301,8 +296,8 @@ export default {
     margin: 0 6%;
 }
 
-.mui-checkbox input[type=checkbox]:checked:before,
-.mui-radio input[type=radio]:checked:before {
+.mui-checkbox input[type="checkbox"]:checked:before,
+.mui-radio input[type="radio"]:checked:before {
     color: orange;
 }
 </style>

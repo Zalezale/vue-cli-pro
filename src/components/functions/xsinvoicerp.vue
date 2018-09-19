@@ -4,6 +4,7 @@
     v-cloak
 >
     <EsunHeader
+        v-bind:color = "colorNow"
         v-bind:ismenu="false"
         v-bind:iscenter="false"
         v-bind:headername="header"
@@ -134,6 +135,7 @@ export default {
             showForm: true,
             res: [],
             mask: false,
+            colorNow:'orange'
         }
     },
     methods: {
@@ -197,14 +199,21 @@ export default {
                 that.showForm = false;
             }, function (a, b, c) {
                 that.mask = false;
-            },this,function(){
-                that.mask = false
-            },null)
+            },this)
         }
     },
     created: function () {
         app.init(this);
-    }
+    },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            console.log(" app color:   "+app.colorNow())
+            vm.colorNow = app.colorNow();
+            console.log("menu  app color:   "+vm.colorNow)
+            // vm.$refs.header.changeColor();
+            // vm.activeColor = vm.color
+        })
+    },
 }
 </script>
 

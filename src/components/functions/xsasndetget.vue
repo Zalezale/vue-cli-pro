@@ -5,6 +5,7 @@
 >
     <div v-show="!useScan">
         <EsunHeader
+            v-bind:color = "colorNow"
             v-bind:ismenu="false"
             v-bind:iscenter="false"
             v-bind:headername="header"
@@ -147,6 +148,7 @@ export default {
             scanPng: null,
             useScan: false,
             mask: false,
+            colorNow:"orange"
         }
     },
     methods: {
@@ -359,7 +361,16 @@ export default {
     created: function () {
         this.scanPng = scan
         app.init(this);
-    }
+    },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            console.log(" app color:   "+app.colorNow())
+            vm.colorNow = app.colorNow();
+            console.log("menu  app color:   "+vm.colorNow)
+            // vm.$refs.header.changeColor();
+            // vm.activeColor = vm.color
+        })
+    },
 }
 </script>
 
@@ -396,7 +407,7 @@ img {
     width: 100%;
     height: 35px;
     line-height: 35px;
-    vertical-align: middle;
+    
 }
 
 .td-5-0 {

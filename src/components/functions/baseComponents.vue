@@ -2,6 +2,7 @@
 <div v-cloak>
     <div v-show="!useScan">
         <EsunHeader
+            v-bind:color = "colorNow"
             v-bind:ismenu="false"
             v-bind:iscenter="false"
             v-bind:headername="header"
@@ -59,7 +60,8 @@ export default {
             code3: '',
             useScan: false,
             whichOne: '',
-            position:''
+            position:'',
+            colorNow:''
         }
     },
     methods: {
@@ -94,6 +96,15 @@ export default {
     },
     created: function () {
         app.init(this);
-    }
+    },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            console.log(" app color:   "+app.colorNow())
+            vm.colorNow = app.colorNow();
+            console.log("menu  app color:   "+vm.colorNow)
+            // vm.$refs.header.changeColor();
+            // vm.activeColor = vm.color
+        })
+    },
 }
 </script>
